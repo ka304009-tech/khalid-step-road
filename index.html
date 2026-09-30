@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Gyne Block HQ · Khalid</title>
+<title>Step Road · Gyne + Step 1 · Khalid</title>
 <style>
 :root{
   --bg:#07110e;--panel:#0d1b17;--panel2:#10231e;--line:#1f4036;
@@ -68,7 +68,7 @@ details{border:1px solid var(--line);border-radius:14px;background:#0a1714;paddi
   <header class="top">
     <div class="brand">
       <div class="logo">KR</div>
-      <div><h1>Gyne Block HQ</h1><p>Khalid · Group 4 · pass Gyne first</p></div>
+      <div><h1>Step Road · Gyne Focus</h1><p>Khalid · Group 4 · Gyne + Step 1 in parallel</p></div>
     </div>
     <div class="actions">
       <button class="btn" id="backupBtn">Backup</button>
@@ -82,10 +82,10 @@ details{border:1px solid var(--line);border-radius:14px;background:#0a1714;paddi
       <div class="phase">
         <span class="pill">GYNE PRIORITY MODE</span>
         <span class="pill amber" id="phasePill">Clinic weeks</span>
-        <span class="pill blue">Step 1 = maintenance only</span>
+        <span class="pill blue">STEP 1 PARALLEL LANE</span>
       </div>
-      <h2>One job: pass this block.</h2>
-      <p>Core notes + oral drills + your actual past papers. The long-term Australia/US plan stays in the background until Oct 28.</p>
+      <h2>Pass Gyne. Build Step 1 at the same time.</h2>
+      <p>Gyne stays the immediate priority, but every day also moves the USMLE plan forward. When the topics overlap, the Step 1 work is paired to the Gyne topic so the same study time does double duty.</p>
       <div class="bar"><span id="overallBar"></span></div>
     </div>
     <div class="card">
@@ -98,15 +98,24 @@ details{border:1px solid var(--line);border-radius:14px;background:#0a1714;paddi
   </section>
 
   <section class="section">
+    <div class="section-head"><h3>Bigger picture</h3><p>Zoomed in today, but never losing the road ahead.</p></div>
+    <div class="week-grid">
+      <div class="week"><strong>NOW · Gyne block</strong><span>Primary objective: pass the written + practical/oral. Core notes, oral recall and past papers drive the workload.</span></div>
+      <div class="week"><strong>PARALLEL · Step 1</strong><span>30–45 min most clinic days: B&B reproductive content + small Step 1 question sets paired with the Gyne topic.</span></div>
+      <div class="week"><strong>NEXT · USMLE → Australia</strong><span>After Gyne, Step 1 becomes the main study project toward the early-May 2027 window; Step 2 follows later while Australia remains the primary career path.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="section-head"><h3>Today's workload</h3><p id="todaySummary">No deciding required.</p></div>
     <div class="today-grid">
       <div class="card">
         <div class="tasklist" id="todayTasks">
-          <div class="task"><input class="check" type="checkbox"><div><div class="task-title">Clinic practical recap</div><div class="task-meta">Gynecologic exam · vaginal sample collection · sterile technique</div></div><div class="time">35 min</div></div>
-          <div class="task"><input class="check" type="checkbox"><div><div class="task-title">Core: PCOS + AUB + hirsutism</div><div class="task-meta">Use Aynur notes. Learn only the exam skeleton + buzzwords.</div></div><div class="time">45 min</div></div>
+          <div class="task"><input class="check" type="checkbox"><div><div class="task-title">Gyne core topic</div><div class="task-meta">Use today’s Daily Map topic. Learn the exam skeleton + buzzwords.</div></div><div class="time">50 min</div></div>
+          <div class="task"><input class="check" type="checkbox"><div><div class="task-title">Step 1 paired study</div><div class="task-meta">B&B reproductive topic matched to today’s Gyne subject.</div></div><div class="time">30 min</div></div>
           <div class="task"><input class="check" type="checkbox"><div><div class="task-title">Oral: ectopic + endometriosis</div><div class="task-meta">Definition → risks → symptoms → diagnosis → treatment → complications.</div></div><div class="time">20 min</div></div>
           <div class="task"><input class="check" type="checkbox"><div><div class="task-title">15 past-paper MCQs</div><div class="task-meta">Start with Group D 25–26. Review why each wrong option is wrong.</div></div><div class="time">35 min</div></div>
-          <div class="task"><input class="check" type="checkbox"><div><div class="task-title">Step 1 commute maintenance</div><div class="task-meta">One B&B reproductive video. Optional if Gyne work is unfinished.</div></div><div class="time">25 min</div></div>
+          <div class="task"><input class="check" type="checkbox"><div><div class="task-title">Step 1 mini Q-set</div><div class="task-meta">5–10 Reproductive questions · unused · random · tutor. Review misses.</div></div><div class="time">25 min</div></div>
         </div>
         <div class="custom-row">
           <input id="customTaskText" placeholder="Add something that came up...">
@@ -204,7 +213,7 @@ details{border:1px solid var(--line);border-radius:14px;background:#0a1714;paddi
   </section>
 
   <section class="section">
-    <div class="section-head"><h3>Daily map</h3><p>One main topic per day; everything else is secondary.</p></div>
+    <div class="section-head"><h3>Gyne + Step 1 daily map</h3><p>One Gyne target, one matched USMLE target.</p></div>
     <div class="card">
       <div id="dailyMap" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px"></div>
     </div>
@@ -212,18 +221,18 @@ details{border:1px solid var(--line);border-radius:14px;background:#0a1714;paddi
 
   <section class="section">
     <details>
-      <summary>After Gyne: Step 1 ramp-up</summary>
-      <p style="color:var(--muted);font-size:13px;line-height:1.6">Until Oct 28, Step 1 is maintenance only: commute video or very light recall after Gyne work is complete. From Oct 29, the dashboard can switch back to the full Step 1 plan toward the early-May 2027 target.</p>
+      <summary>After Gyne: Step 1 becomes the main lane</summary>
+      <p style="color:var(--muted);font-size:13px;line-height:1.6">During Gyne, Step 1 runs in parallel at a sustainable dose. From Oct 29, the balance flips: Step 1 becomes the main project and the daily question volume/content time increases toward the early-May 2027 target.</p>
     </details>
   </section>
 
-  <p class="footerNote">Rule for this block: do not add a new resource unless it replaces something. Your submitted core notes are the content base; the oral document is the answer framework; the written papers decide what gets repeated.</p>
+  <p class="footerNote">Rule for this block: Gyne decides the immediate priority; Step 1 never disappears. No routine practical-lesson reviews will be scheduled unless you specifically ask for one. Your submitted core notes are the Gyne content base; the oral document is the answer framework; the written papers decide what gets repeated.</p>
 </div>
 <div class="toast" id="toast">Saved</div>
 
 <script>
 (function(){
-  var KEY='khalidGyneHQ_v2';
+  var KEY='khalidGyneHQ_v3';
   var written=new Date('2026-10-27T08:30:00+03:00');
   var practical=new Date('2026-10-28T08:30:00+03:00');
 
@@ -269,35 +278,35 @@ details{border:1px solid var(--line);border-radius:14px;background:#0a1714;paddi
   ];
 
   var map=[
-    ['Sep 30','PCOS + AUB + hirsutism'],
-    ['Oct 1','HTN + preeclampsia + HELLP'],
-    ['Oct 2','Endometriosis + myoma + adenomyosis'],
-    ['Oct 3','Ectopic + abortion + stillbirth'],
-    ['Oct 4','HPV/CIN + cervical/vulvar disease'],
-    ['Oct 5','GDM + systemic disease'],
-    ['Oct 6','IUGR + amniotic fluid + NST'],
-    ['Oct 7','PPH + placenta previa/abruption/accreta'],
-    ['Oct 8','Ovarian + endometrial cancer'],
-    ['Oct 9','PID + STIs + TORCH'],
-    ['Oct 10','Infertility + contraception + menstrual cycle'],
-    ['Oct 11','Urinary incontinence + POP + pelvic trauma'],
-    ['Oct 12','Labor + preterm + twins + shoulder dystocia'],
-    ['Oct 13','Menopause + HRT + mixed recall'],
-    ['Oct 14','Weakest 2 topics + 20 MCQs'],
-    ['Oct 15','Oral circuit: 10 topics'],
-    ['Oct 16','Mixed written set + clinic practical recall'],
-    ['Oct 17','Core pass #2: Obstetrics'],
-    ['Oct 18','Core pass #2: Gynecology'],
-    ['Oct 19','Full paper #1 + error log + oral'],
-    ['Oct 20','Full paper #2 + weak-topic repair'],
-    ['Oct 21','Full paper #3 + oral circuit'],
-    ['Oct 22','Full paper #4 + core rapid recall'],
-    ['Oct 23','Full paper #5 + practical/oral'],
-    ['Oct 24','Mock written + review misses'],
-    ['Oct 25','Mock oral/practical + weak topics'],
-    ['Oct 26','Final high-yield only · no new content'],
-    ['Oct 27','WRITTEN EXAM'],
-    ['Oct 28','PRACTICAL / ORAL EXAM']
+    ['Oct 1','Gyne: HTN + preeclampsia + HELLP','Step 1: Pregnancy physiology + hypertensive disorders'],
+    ['Oct 2','Gyne: Endometriosis + myoma + adenomyosis','Step 1: Uterine/endometrial pathology'],
+    ['Oct 3','Gyne: Ectopic + abortion + stillbirth','Step 1: Early pregnancy + embryology'],
+    ['Oct 4','Gyne: HPV/CIN + cervical/vulvar disease','Step 1: HPV + neoplasia'],
+    ['Oct 5','Gyne: GDM + systemic disease','Step 1: Insulin/glucose physiology in pregnancy'],
+    ['Oct 6','Gyne: IUGR + amniotic fluid + NST','Step 1: Placenta + fetal physiology'],
+    ['Oct 7','Gyne: PPH + previa/abruption/accreta','Step 1: Placenta + labor physiology'],
+    ['Oct 8','Gyne: Ovarian + endometrial cancer','Step 1: Reproductive tumors'],
+    ['Oct 9','Gyne: PID + STIs + TORCH','Step 1: Reproductive infections'],
+    ['Oct 10','Gyne: Infertility + contraception + menstrual cycle','Step 1: HPO axis + menstrual cycle'],
+    ['Oct 11','Gyne: Incontinence + POP + pelvic trauma','Step 1: Pelvic anatomy + autonomics'],
+    ['Oct 12','Gyne: Labor + preterm + twins + shoulder dystocia','Step 1: Pregnancy/labor concepts'],
+    ['Oct 13','Gyne: Menopause + HRT','Step 1: Menopause + reproductive endocrinology'],
+    ['Oct 14','Gyne: Weakest 2 topics','Step 1: 10 matched Reproductive questions'],
+    ['Oct 15','Gyne: Oral circuit · 10 topics','Step 1: B&B reproductive catch-up'],
+    ['Oct 16','Gyne: Mixed written set','Step 1: 10 Reproductive questions'],
+    ['Oct 17','Gyne: Core pass #2 · Obstetrics','Step 1: Pregnancy rapid review'],
+    ['Oct 18','Gyne: Core pass #2 · Gynecology','Step 1: Reproductive pathology rapid review'],
+    ['Oct 19','Gyne: Full paper #1 + oral','Step 1: 20 min maintenance'],
+    ['Oct 20','Gyne: Full paper #2 + weak repair','Step 1: 20 min maintenance'],
+    ['Oct 21','Gyne: Full paper #3 + oral','Step 1: 20 min maintenance'],
+    ['Oct 22','Gyne: Full paper #4 + recall','Step 1: 20 min maintenance'],
+    ['Oct 23','Gyne: Full paper #5 + oral','Step 1: 20 min maintenance'],
+    ['Oct 24','Gyne: Mock written + misses','Step 1: optional light review'],
+    ['Oct 25','Gyne: Mock oral + weak topics','Step 1: optional light review'],
+    ['Oct 26','Gyne: Final high-yield only','Step 1: off / only if relaxing'],
+    ['Oct 27','WRITTEN EXAM','Step 1: off'],
+    ['Oct 28','PRACTICAL / ORAL EXAM','Step 1: off'],
+    ['Oct 29','GYNE COMPLETE','Step 1: main lane begins']
   ];
 
   function load(){
@@ -340,31 +349,34 @@ details{border:1px solid var(--line);border-radius:14px;background:#0a1714;paddi
 
   var baseTasks={
    '2026-09-30':[
-     ['Clinic practical recap','Gynecologic exam · vaginal sample collection · sterile technique',35,false],
-     ['Core: PCOS + AUB + hirsutism','Aynur notes. Rotterdam, PALM-COEIN, workup, treatment, hirsutism labs.',45,false],
-     ['Oral: ectopic + endometriosis','Answer both from memory with the 6-part oral frame.',20,false],
-     ['15 past-paper MCQs','Start Group D 25–26. Review every miss.',35,false],
-     ['Step 1 commute maintenance','One B&B reproductive video. Skip if Gyne is unfinished.',25,true]
+     ['Setup day complete','Website + materials + exam plan organized. No studying required tonight.',1,false]
+   ],
+   '2026-10-01':[
+     ['Gyne core: HTN + preeclampsia + HELLP','Use your hypertensive-disorders material. Build definition → diagnosis → severe features → management → complications.',50,false],
+     ['Gyne oral drill','Preeclampsia/eclampsia + HELLP from memory using the 6-part oral frame.',20,false],
+     ['Gyne written practice','15 past-paper MCQs. Prioritize pregnancy hypertension/GDM/obstetric questions when available.',35,false],
+     ['Step 1 B&B · paired topic','Pregnancy / reproductive physiology content that overlaps with hypertension in pregnancy.',30,false],
+     ['Step 1 Q-set','5–10 unused Reproductive questions · Random · Tutor. Review explanations.',25,false]
    ]
   };
   function defaultTasks(){
     if(baseTasks[tk])return baseTasks[tk];
     if(tk>='2026-10-19' && tk<='2026-10-23')return[
       ['Full past paper','Timed. No notes.',70,false],['Review every miss','Turn mistakes into a short error list.',55,false],
-      ['Weak-topic repair','One core topic only.',70,false],['Oral circuit','8 rapid-fire topics.',45,false],['Practical recall','Exam steps / maneuvers / interpretation.',30,false]
+      ['Weak-topic repair','One core topic only.',70,false],['Oral circuit','8 rapid-fire topics.',45,false],['Step 1 maintenance','20 min paired Reproductive review.',20,false]
     ];
     if(tk>='2026-10-24' && tk<='2026-10-26')return[
       ['Mock / high-yield set','Timed exam conditions.',75,false],['Review misses only','No broad rereading.',60,false],
-      ['Oral rapid-fire','10 topics.',45,false],['Practical checklist','NST, exam steps, maneuvers.',30,false]
+      ['Oral rapid-fire','10 topics.',45,false],['Step 1 light review','15–20 min only; Gyne exam remains first.',20,true]
     ];
     if(tk==='2026-10-27')return[['Written exam','No new material. Quick high-yield skim only.',20,false]];
     if(tk==='2026-10-28')return[['Practical / oral exam','Run your oral backbone and practical sequence once.',25,false]];
     return[
-      ['Clinic recall','Write 5 things from today before opening notes.',25,false],
-      ['Main Gyne topic','Use today’s Daily Map topic.',50,false],
-      ['Oral drill','2 topics from memory.',20,false],
-      ['Past-paper MCQs','15 questions + review.',35,false],
-      ['Step 1 commute maintenance','20–30 min only after Gyne priorities.',25,true]
+      ['Main Gyne topic','Use today’s Gyne target from the Daily Map.',50,false],
+      ['Gyne oral drill','2 topics from memory using the 6-part frame.',20,false],
+      ['Gyne past-paper MCQs','15 questions + review.',35,false],
+      ['Step 1 paired content','B&B Reproductive topic matched to today’s Gyne subject.',30,false],
+      ['Step 1 mini Q-set','5–10 Reproductive questions · unused · random · tutor.',25,false]
     ];
   }
 
@@ -436,7 +448,7 @@ details{border:1px solid var(--line);border-radius:14px;background:#0a1714;paddi
     var root=document.getElementById('dailyMap');root.innerHTML='';
     map.forEach(function(x){
       var div=document.createElement('div');div.style.cssText='padding:10px;border:1px solid var(--line);border-radius:11px;background:#0a1714';
-      div.innerHTML='<div style="font-size:11px;color:var(--muted)">'+x[0]+'</div><b style="font-size:13px">'+escapeHtml(x[1])+'</b>';
+      div.innerHTML='<div style="font-size:11px;color:var(--muted)">'+x[0]+'</div><b style="font-size:13px">'+escapeHtml(x[1])+'</b><div style="font-size:11px;color:#9fb6ad;margin-top:5px">'+escapeHtml(x[2]||'')+'</div>';
       root.appendChild(div);
     });
   }
@@ -485,8 +497,9 @@ details{border:1px solid var(--line);border-radius:14px;background:#0a1714;paddi
   document.getElementById('minimumBtn').onclick=function(){
     state.custom[tk]=[
       ['MINIMUM: 20 min main Gyne topic','No notes perfection. Learn the skeleton.',20,false],
-      ['MINIMUM: 5 past-paper MCQs','Review only the misses.',15,false],
-      ['MINIMUM: 1 oral topic','Say it aloud using the 6-part frame.',10,false]
+      ['MINIMUM: 5 Gyne past-paper MCQs','Review only the misses.',15,false],
+      ['MINIMUM: 1 oral topic','Say it aloud using the 6-part frame.',10,false],
+      ['MINIMUM: 15 min Step 1','One paired B&B segment or 5 Reproductive questions.',15,false]
     ];
     state.tasks[tk]={};save();renderTasks();toast('Minimum day loaded');
   };
