@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0b1411" />
+<title>Khalid — Step Road Beta</title>
+<style>
+  :root{
+    --bg:#08110e; --panel:#10201a; --panel2:#13261f; --panel3:#182e26;
+    --line:#284438; --text:#eef7f1; --muted:#9eb3a9; --mint:#48d9b2;
+    --amber:#f4b84a; --red:#ff7d73; --blue:#8ea9ff; --white:#fff;
+    --shadow:0 12px 35px rgba(0,0,0,.26); --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:linear-gradient(180deg,#07100d 0%,#0a1511 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  button,input,select,textarea{font:inherit}
+  button{cursor:pointer}
+  .app{max-width:1180px;margin:0 auto;padding:22px 18px 80px}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px;position:sticky;top:0;z-index:50;padding:10px 0;background:linear-gradient(180deg,rgba(8,17,14,.98),rgba(8,17,14,.88),rgba(8,17,14,0))}
+  .brand{display:flex;align-items:center;gap:12px}.logo{width:40px;height:40px;border-radius:12px;background:#163428;border:1px solid #2d5b49;display:grid;place-items:center;font-weight:900;color:var(--mint)}
+  h1{font-size:22px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:2px}
+  .top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  .btn{border:1px solid var(--line);background:#13251f;color:var(--text);border-radius:12px;padding:10px 13px;font-weight:700}
+  .btn:hover{background:#183027}.btn.primary{background:var(--mint);color:#08251c;border-color:transparent}.btn.warn{background:#3b2c11;border-color:#6d531d;color:#ffd681}.btn.danger{background:#3a1b1a;border-color:#6a2f2d;color:#ffb2ad}
+  .grid{display:grid;gap:16px}.grid.cols4{grid-template-columns:repeat(4,minmax(0,1fr))}.grid.cols3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.cols2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card{background:linear-gradient(180deg,var(--panel),#0f1d18);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  .card h2,.card h3{margin:0 0 12px}.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#90ad9f;font-weight:800;margin-bottom:10px}
+  .hero{display:grid;grid-template-columns:1.4fr .9fr;gap:16px;margin-bottom:16px}.hero .card{min-height:160px}
+  .phase{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;background:#143d31;color:#6cf0c7;font-weight:800;font-size:12px}
+  .hero-title{font-size:30px;font-weight:900;margin:12px 0 5px}.hero-copy{color:var(--muted);line-height:1.55}
+  .progress{height:10px;background:#0b1713;border-radius:999px;overflow:hidden;border:1px solid #223c31}.progress>span{display:block;height:100%;background:linear-gradient(90deg,#35bea0,#5de4bd);width:0%}
+  .count{font-size:31px;font-weight:900}.count-label{color:var(--muted);font-size:12px;margin-top:3px}.metric{padding:16px;background:var(--panel2);border:1px solid var(--line);border-radius:16px}
+  .section-title{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 12px;gap:10px}.section-title h2{font-size:18px;margin:0}.section-title .hint{font-size:12px;color:var(--muted)}
+  .today-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}.date-big{font-size:24px;font-weight:900}.date-small{color:var(--muted);font-size:13px;margin-top:3px}
+  .task-list{display:flex;flex-direction:column;gap:9px}.task{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;background:var(--panel2);border:1px solid #244236;border-radius:14px;padding:12px 12px}.task.done{opacity:.55}.task.done .task-title{text-decoration:line-through}.task-check{width:26px;height:26px;border-radius:8px;border:2px solid #688376;background:transparent;display:grid;place-items:center;color:#06261d;font-weight:900}.task.done .task-check{background:var(--mint);border-color:var(--mint)}
+  .task-title{font-weight:800}.task-meta{font-size:12px;color:var(--muted);margin-top:4px;display:flex;gap:8px;flex-wrap:wrap}.pill{font-size:10px;font-weight:900;letter-spacing:.05em;padding:4px 7px;border-radius:999px;background:#22352e;color:#d7e8df}.pill.usmle{background:#104033;color:#69efc5}.pill.uni{background:#e9eceb;color:#173128}.pill.admin{background:#3b2d11;color:#ffd379}.pill.personal{background:#202d4c;color:#b8c7ff}.pill.critical{background:#592321;color:#ffbbb6}
+  .task-actions{display:flex;gap:6px}.iconbtn{border:1px solid #304f43;background:#0e1b17;color:#cfe2d8;border-radius:9px;width:34px;height:34px}.iconbtn:hover{background:#173028}
+  .unlock{margin-top:12px;padding:12px 14px;border-radius:13px;background:#0d1a16;border:1px dashed #35594a;color:var(--muted)}.unlock.ok{background:#11372c;border-style:solid;color:#aef1d5}
+  .week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.day{padding:12px 6px;border-radius:13px;border:1px solid #29463b;background:#13241e;text-align:center}.day.active{border-color:var(--mint);box-shadow:0 0 0 1px var(--mint) inset}.day .dow{font-size:11px;color:var(--muted)}.day .num{font-size:18px;font-weight:900;margin:3px}.day .dot{width:9px;height:9px;border-radius:999px;background:#29483c;margin:6px auto 0}.day.all .dot{background:var(--mint)}.day.partial .dot{background:var(--amber)}
+  .road{position:relative;padding:18px 2px 6px;overflow:auto}.roadline{height:6px;background:#203d33;border-radius:999px;min-width:820px;margin:44px 30px 0}.stops{display:flex;justify-content:space-between;min-width:880px;transform:translateY(-19px)}.stop{width:110px;text-align:center;position:relative}.stop .node{width:24px;height:24px;border-radius:50%;background:#1b332b;border:4px solid #345549;margin:0 auto 8px}.stop.current .node{background:var(--mint);border-color:#65efd0}.stop .sdate{font-size:10px;color:#99afa4}.stop .sname{font-size:12px;font-weight:800;margin-top:2px}.stop.primary .node{box-shadow:0 0 0 5px rgba(72,217,178,.12)}
+  table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid #264438;font-size:13px}th{color:#98afa4;font-size:11px;text-transform:uppercase;letter-spacing:.08em}td input{width:100%}
+  .system-row{display:grid;grid-template-columns:1.3fr .8fr .8fr .9fr 80px;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid #233e34}.system-row:last-child{border-bottom:0}.bar{height:8px;background:#0a1612;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:var(--mint)}
+  .small-input,.field{width:100%;background:#0d1a16;color:var(--text);border:1px solid #315044;border-radius:10px;padding:10px 11px}.field:focus,.small-input:focus{outline:2px solid #2c6b57;border-color:#2c6b57}.textarea{min-height:90px;resize:vertical}
+  .priority-list{display:flex;flex-direction:column;gap:8px}.priority-item{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;background:#13241e;border:1px solid #28483b;border-radius:13px;padding:11px}.drag{color:#607b70}.prio-title{font-weight:800}.prio-meta{font-size:12px;color:var(--muted);margin-top:3px}
+  .footer-note{color:#789083;font-size:12px;text-align:center;margin-top:28px}
+  dialog{border:1px solid var(--line);border-radius:18px;background:#0f1d18;color:var(--text);padding:0;max-width:620px;width:calc(100% - 28px);box-shadow:0 25px 90px rgba(0,0,0,.55)}dialog::backdrop{background:rgba(0,0,0,.65)}.modal{padding:18px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.modal-head h3{margin:0}.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}.hidden{display:none!important}
+  .focus-overlay{position:fixed;inset:0;background:rgba(5,11,9,.97);z-index:100;display:grid;place-items:center;padding:20px}.focus-card{max-width:720px;width:100%;background:#10221b;border:1px solid #315847;border-radius:24px;padding:26px;box-shadow:0 25px 100px rgba(0,0,0,.7)}.focus-num{color:var(--mint);font-weight:900;font-size:12px;letter-spacing:.1em}.focus-title{font-size:30px;font-weight:900;margin:10px 0}.focus-meta{color:var(--muted);margin-bottom:22px}.timer{font-size:42px;font-weight:900;margin:18px 0}.focus-actions{display:flex;gap:10px;flex-wrap:wrap}
+  .toast{position:fixed;right:18px;bottom:18px;background:#143428;color:#dffff4;border:1px solid #2e5c4a;padding:12px 14px;border-radius:12px;z-index:150;box-shadow:var(--shadow)}
+  .beta-banner{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:14px 16px;margin-bottom:16px;border-radius:16px;background:linear-gradient(90deg,#17372e,#142d25);border:1px solid #32604f}.beta-badge{display:inline-flex;padding:5px 9px;border-radius:999px;background:#5ee2bb;color:#06271d;font-weight:900;font-size:11px;letter-spacing:.08em}.clinic-brief{margin:12px 0 14px;padding:12px 14px;border-radius:13px;background:#152a23;border:1px solid #315044}.clinic-brief strong{color:#dff8eb}.feedback-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.feedback-choice{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.scorebtn{border:1px solid #315044;background:#0d1a16;color:#cfe2d8;border-radius:9px;min-width:38px;padding:8px}.scorebtn.active{background:var(--mint);color:#08251c;border-color:var(--mint)}.tiny{font-size:11px;color:var(--muted)}
+  @media(max-width:700px){.feedback-grid{grid-template-columns:1fr}.beta-banner{align-items:flex-start;flex-direction:column}}
+  @media(max-width:900px){.hero{grid-template-columns:1fr}.grid.cols4,.grid.cols3{grid-template-columns:repeat(2,1fr)}.system-row{grid-template-columns:1fr 1fr}.system-row .sys-bar{grid-column:1 / -1}.topbar{position:static}.week{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:620px){.app{padding:12px 10px 70px}.grid.cols4,.grid.cols3,.grid.cols2{grid-template-columns:1fr}.modal-grid{grid-template-columns:1fr}.task{grid-template-columns:34px 1fr}.task-actions{grid-column:2}.week{grid-template-columns:repeat(7,72px);overflow-x:auto}.hero-title{font-size:25px}.section-title{align-items:flex-end}.system-row{grid-template-columns:1fr}.system-row .sys-bar{grid-column:auto}.top-actions .btn{padding:8px 10px;font-size:12px}}
+
+.workload-card{border:1px solid rgba(77,208,173,.28);background:linear-gradient(180deg,rgba(77,208,173,.07),rgba(255,255,255,.015))}.workload-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}.workload-total{font-size:30px;font-weight:900;line-height:1}.workload-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.workload-item{padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02);display:flex;gap:12px;align-items:flex-start}.workload-num{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:rgba(77,208,173,.12);color:var(--mint);font-weight:900;flex:none}.workload-item.optional .workload-num{background:rgba(255,184,77,.12);color:var(--amber)}.workload-name{font-weight:800}.workload-meta{font-size:12px;color:var(--muted);margin-top:4px}.workload-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}@media(max-width:760px){.workload-grid{grid-template-columns:1fr}.workload-top,.workload-footer{flex-direction:column;align-items:stretch}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><div class="logo">KR</div><div><h1>Step Road <span class="beta-badge">BETA</span></h1><div class="sub">Khalid · BAU Medicine · Australia primary · US backup</div></div></div>
+    <div class="top-actions">
+      <button class="btn" id="backupBtn">Backup</button><button class="btn" id="importBtn">Restore</button>
+      <button class="btn" id="settingsBtn">Settings</button>
+      <button class="btn primary" id="addTaskBtn">+ Add task</button>
+    </div>
+  </div>
+
+
+  <div class="beta-banner">
+    <div><strong>Beta test · Day 1 · v1.2</strong><div class="sub">Today is deliberately light: finish clinic, use the return commute, then complete one focused home session.</div></div>
+    <div class="tiny">Your feedback tonight will shape Version 2.</div>
+  </div>
+  <div class="card" style="margin-top:12px;border-color:rgba(255,184,77,.4);background:rgba(255,184,77,.06)">
+    <strong>iPad preview mode</strong>
+    <div class="sub" style="margin-top:5px">You should be able to SEE today’s plan below even if iOS blocks JavaScript. Interactive buttons and saved progress require a real browser-hosted version.</div>
+  </div>
+
+  <div class="hero">
+    <div class="card">
+      <div class="phase" id="phaseBadge">Current phase</div>
+      <div class="hero-title" id="phaseTitle">Gyne + Step 1 Foundation</div>
+      <div class="hero-copy" id="phaseCopy">Pass Gyne first. Build a daily Step 1 habit without burning out.</div>
+      <div style="height:14px"></div>
+      <div class="progress"><span id="overallProgress"></span></div>
+      <div class="sub" style="margin-top:8px" id="progressCaption">Foundation phase · Step 1 working target: early May 2027</div>
+    </div>
+    <div class="card">
+      <div class="eyebrow">Working target</div>
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:8px">
+        <div><div class="count" id="daysToStep">220</div><div class="count-label">days to Step 1 target</div></div>
+        <div style="text-align:right"><div style="font-weight:900" id="stepTargetLabel">Early May 2027</div><div class="sub">editable · readiness decides the real date</div></div>
+      </div>
+      <div style="height:18px"></div>
+      <div class="grid cols3">
+        <div class="metric"><div class="count" id="qThisWeek">0</div><div class="count-label">questions this week</div></div>
+        <div class="metric"><div class="count" id="daysDoneWeek">0</div><div class="count-label">full days done</div></div>
+        <div class="metric"><div class="count" id="streak">0</div><div class="count-label">day streak</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid cols4" id="countdowns"><div class="metric"><div class="count">28</div><div class="count-label">days · Gyne ends<br>28 Oct 2026</div></div><div class="metric"><div class="count">76</div><div class="count-label">days · Elective window<br>~15 Dec 2026</div></div><div class="metric"><div class="count">107</div><div class="count-label">days · Next block<br>~15 Jan 2027</div></div><div class="metric"><div class="count">274</div><div class="count-label">days · likely graduation<br>1 Jul 2029</div></div></div>
+
+  <div class="section-title"><h2>Today’s workload</h2><div class="hint">This is the plan to execute today — no deciding required.</div></div>
+  <div class="card workload-card" id="workloadSummary"><div class="workload-top"><div><div class="eyebrow">TODAY · WEDNESDAY 30 SEP</div><div style="font-size:22px;font-weight:900;margin-top:4px">Clinic day beta plan</div><div class="sub" style="margin-top:5px">Finish these in order. Gyne stays protected; Step 1 stays alive.</div></div><div style="text-align:right"><div class="workload-total">2h 35m</div><div class="count-label">required · 10 questions</div></div></div><div class="workload-grid"><div class="workload-item"><div class="workload-num">1</div><div><div class="workload-name">Return commute · B&amp;B Reproductive → Pregnancy → 02 Placenta</div><div class="workload-meta">25 min · required</div></div></div><div class="workload-item"><div class="workload-num">2</div><div><div class="workload-name">Gyne recap · gynecologic exam + vaginal sampling + sterile technique</div><div class="workload-meta">75 min · required</div></div></div><div class="workload-item"><div class="workload-num">3</div><div><div class="workload-name">10 unused Reproductive questions · Random · Tutor</div><div class="workload-meta">35 min · 10 questions · required</div></div></div><div class="workload-item"><div class="workload-num">4</div><div><div class="workload-name">Review incorrects · classify K / C / R / Q</div><div class="workload-meta">20 min · required</div></div></div><div class="workload-item optional"><div class="workload-num">+</div><div><div class="workload-name">Optional · B&amp;B Reproductive → Pregnancy → 06 Hypertension in pregnancy</div><div class="workload-meta">20 min · optional</div></div></div></div><div class="workload-footer"><div class="sub">0/4 required tasks complete</div><div class="sub">Preview-safe fallback: these tasks remain visible even when JavaScript is blocked.</div></div></div>
+
+  <div class="section-title" id="todaySection"><h2>Today</h2><div class="hint">Open → do the first thing → continue.</div></div>
+  <div class="card">
+    <div class="today-head">
+      <div><div class="date-big" id="todayLabel">Wednesday, 30 Sep</div><div class="date-small" id="todaySub">Gyne + Step 1 Foundation · Clinic-day capacity 3h</div></div>
+      <div class="top-actions"><button class="btn warn" id="minimumBtn">Minimum day</button><button class="btn" id="recoveryBtn">Recovery mode</button><button class="btn" id="logQBtn">Log Q set</button><button class="btn primary" id="startBtn">Start studying</button></div>
+    </div>
+    <div class="clinic-brief" id="clinicBrief"><strong>Group 4 clinic today:</strong> Gynecologic examination → vaginal sample collection/preparation → surgical hand antisepsis &amp; sterile technique.<br><span class="tiny">Suggested flow: clinic → return-commute B&amp;B → dinner/decompress → Gyne 75 min → 10 Q → incorrects → leisure/family → gym.</span></div>
+    <div class="task-list" id="todayTasks"><div class="task"><input type="checkbox" class="task-check" aria-label="complete"><div><div class="task-title">Return commute · B&amp;B Reproductive → Pregnancy → 02 Placenta</div><div class="task-meta"><span class="pill usmle">USMLE</span><span>25 min</span></div></div></div><div class="task"><input type="checkbox" class="task-check" aria-label="complete"><div><div class="task-title">Gyne recap · gynecologic exam + vaginal sampling + sterile technique</div><div class="task-meta"><span class="pill uni">UNI</span><span>75 min</span></div></div></div><div class="task"><input type="checkbox" class="task-check" aria-label="complete"><div><div class="task-title">10 unused Reproductive questions · Random · Tutor</div><div class="task-meta"><span class="pill usmle">USMLE</span><span>35 min</span><span>10 Q</span></div></div></div><div class="task"><input type="checkbox" class="task-check" aria-label="complete"><div><div class="task-title">Review incorrects · classify K / C / R / Q</div><div class="task-meta"><span class="pill usmle">USMLE</span><span>20 min</span></div></div></div><div class="task"><input type="checkbox" class="task-check" aria-label="optional"><div><div class="task-title">Optional · B&amp;B Reproductive → Pregnancy → 06 Hypertension in pregnancy</div><div class="task-meta"><span class="pill usmle">USMLE</span><span>20 min</span><span>OPTIONAL</span></div></div></div></div>
+    <div class="unlock" id="leisureGate">🎮 Leisure unlocks after required tasks are complete.</div>
+  </div>
+
+
+  <div class="section-title"><h2>Beta check-in</h2><div class="hint">Do this after tonight's session. It tells us what to change.</div></div>
+  <div class="card">
+    <div class="feedback-grid">
+      <div><strong>How hard was it to start?</strong><div class="feedback-choice" data-feedback="start"></div><div class="tiny">1 = effortless · 5 = very hard</div></div>
+      <div><strong>Was today's workload right?</strong><div class="feedback-choice" data-feedback="load"></div><div class="tiny">1 = too light · 3 = right · 5 = too much</div></div>
+      <div><strong>How focused were you?</strong><div class="feedback-choice" data-feedback="focus"></div><div class="tiny">1 = scattered · 5 = locked in</div></div>
+    </div>
+    <label style="display:block;margin-top:14px">What felt annoying / useful / missing?<textarea class="field textarea" id="betaNote" placeholder="Example: the 10 questions took longer than expected; timer helped; I wanted a break button..."></textarea></label>
+    <div style="display:flex;justify-content:flex-end;margin-top:10px"><button class="btn primary" id="saveFeedbackBtn">Save today's feedback</button></div>
+    <div class="sub" id="feedbackSaved" style="margin-top:8px"></div>
+  </div>
+
+  <div class="section-title"><h2>This week</h2><div class="hint">Green = complete · amber = started</div></div>
+  <div class="card"><div class="week" id="weekStrip"></div></div>
+
+  <div class="section-title"><h2>Priorities</h2><div class="hint">Add anything new. Reorder later. Nothing is permanent.</div></div>
+  <div class="card">
+    <div class="priority-list" id="priorityList"><div class="priority-item"><div class="drag">1</div><div><div class="prio-title">Pass Gyne repeat</div><div class="prio-meta">University · Critical · until 28 Oct</div></div></div><div class="priority-item"><div class="drag">2</div><div><div class="prio-title">Build Step 1 daily habit</div><div class="prio-meta">Step 1 · High · until 28 Oct</div></div></div><div class="priority-item"><div class="drag">3</div><div><div class="prio-title">Get Student Affairs answers in writing</div><div class="prio-meta">Admin · Critical</div></div></div></div>
+    <div style="margin-top:12px"><button class="btn" id="addPriorityBtn">+ Add priority</button></div>
+  </div>
+
+  <div class="section-title"><h2>Step 1 systems</h2><div class="hint">Foundation starts at 3/10. Update as you improve.</div></div>
+  <div class="card" id="systemsCard"></div>
+
+  <div class="section-title"><h2>Road to Australia</h2><div class="hint">Primary path</div></div>
+  <div class="card road"><div class="roadline"></div><div class="stops" id="ausRoad"></div></div>
+
+  <div class="section-title"><h2>US backup</h2><div class="hint">Keep the second door open.</div></div>
+  <div class="card road"><div class="roadline"></div><div class="stops" id="usRoad"></div></div>
+
+  <div class="section-title"><h2>Practice exams</h2><div class="hint">Official assessments decide readiness, not vibes.</div></div>
+  <div class="card" style="overflow:auto">
+    <table><thead><tr><th>Date</th><th>Assessment</th><th>Source</th><th>Target / purpose</th><th>Your result</th><th></th></tr></thead><tbody id="practiceTable"></tbody></table>
+    <div style="margin-top:12px"><button class="btn" id="addExamBtn">+ Add assessment</button></div>
+  </div>
+
+  <div class="section-title"><h2>University & admin</h2><div class="hint">Decisions, paperwork, and questions that can delay you.</div></div>
+  <div class="card"><div class="task-list" id="adminTasks"></div></div>
+
+  <div class="section-title"><h2>Calendar</h2><div class="hint">Major dates only — daily tasks stay above.</div></div>
+  <div class="card"><div class="grid cols3" id="milestones"></div></div>
+
+  <div class="footer-note">Saved locally on this device. Use Backup regularly if you want a portable copy.</div>
+</div>
+
+<dialog id="taskDialog"><form method="dialog" class="modal" id="taskForm">
+  <div class="modal-head"><h3 id="taskDialogTitle">Add task</h3><button class="iconbtn" value="cancel">✕</button></div>
+  <input type="hidden" id="taskId" />
+  <div class="modal-grid">
+    <label>Task<input class="field" id="taskTitle" required /></label>
+    <label>Date<input class="field" id="taskDate" type="date" required /></label>
+    <label>Category<select class="field" id="taskCategory"><option>UNI</option><option>USMLE</option><option>ADMIN</option><option>PERSONAL</option></select></label>
+    <label>Priority<select class="field" id="taskPriority"><option value="4">Critical</option><option value="3">High</option><option value="2" selected>Normal</option><option value="1">Low</option></select></label>
+    <label>Minutes<input class="field" id="taskMinutes" type="number" min="5" step="5" value="30" /></label>
+    <label>Questions<input class="field" id="taskQuestions" type="number" min="0" step="1" value="0" /></label>
+    <label><input id="taskRequired" type="checkbox" checked /> Required today</label>
+    <label><input id="taskFlexible" type="checkbox" checked /> Flexible / movable</label>
+  </div>
+  <label style="display:block;margin-top:10px">Notes<textarea class="field textarea" id="taskNotes"></textarea></label>
+  <div class="modal-actions"><button class="btn" value="cancel">Cancel</button><button class="btn primary" id="saveTaskBtn" value="default">Save</button></div>
+</form></dialog>
+
+<dialog id="priorityDialog"><form method="dialog" class="modal" id="priorityForm">
+  <div class="modal-head"><h3>Add priority</h3><button class="iconbtn" value="cancel">✕</button></div>
+  <div class="modal-grid">
+    <label>Priority<input class="field" id="prioTitle" required /></label>
+    <label>Area<select class="field" id="prioArea"><option>University</option><option>Step 1</option><option>Admin</option><option>Career</option><option>Personal</option></select></label>
+    <label>Weight<select class="field" id="prioWeight"><option value="4">Critical</option><option value="3">High</option><option value="2" selected>Normal</option><option value="1">Low</option></select></label>
+    <label>Until<input class="field" id="prioUntil" type="date" /></label>
+  </div>
+  <div class="modal-actions"><button class="btn" value="cancel">Cancel</button><button class="btn primary" value="default" id="savePriorityBtn">Save</button></div>
+</form></dialog>
+
+<dialog id="examDialog"><form method="dialog" class="modal" id="examForm">
+  <div class="modal-head"><h3>Add assessment</h3><button class="iconbtn" value="cancel">✕</button></div>
+  <div class="modal-grid">
+    <label>Date<input class="field" id="examDate" type="date" required /></label>
+    <label>Assessment<input class="field" id="examName" required /></label>
+    <label>Source<input class="field" id="examSource" /></label>
+    <label>Purpose / target<input class="field" id="examTarget" /></label>
+    <label>Result<input class="field" id="examResult" /></label>
+  </div>
+  <div class="modal-actions"><button class="btn" value="cancel">Cancel</button><button class="btn primary" value="default" id="saveExamBtn">Save</button></div>
+</form></dialog>
+
+
+<dialog id="qlogDialog"><form method="dialog" class="modal" id="qlogForm">
+  <div class="modal-head"><h3>Log question set</h3><button class="iconbtn" value="cancel">✕</button></div>
+  <div class="modal-grid">
+    <label>System<select class="field" id="qlogSystem"></select></label>
+    <label>Total questions<input class="field" id="qlogTotal" type="number" min="1" value="10" required /></label>
+    <label>Correct<input class="field" id="qlogCorrect" type="number" min="0" value="0" required /></label>
+    <label>Knowledge errors (K)<input class="field" id="qlogK" type="number" min="0" value="0" /></label>
+    <label>Concept errors (C)<input class="field" id="qlogC" type="number" min="0" value="0" /></label>
+    <label>Recall errors (R)<input class="field" id="qlogR" type="number" min="0" value="0" /></label>
+    <label>Question-reading errors (Q)<input class="field" id="qlogQ" type="number" min="0" value="0" /></label>
+  </div>
+  <label style="display:block;margin-top:10px">One-line takeaway<textarea class="field textarea" id="qlogNote" placeholder="What kept showing up?"></textarea></label>
+  <div class="modal-actions"><button class="btn" value="cancel">Cancel</button><button class="btn primary" value="default">Save set</button></div>
+</form></dialog>
+
+<dialog id="settingsDialog"><form method="dialog" class="modal" id="settingsForm">
+  <div class="modal-head"><h3>Settings</h3><button class="iconbtn" value="cancel">✕</button></div>
+  <div class="modal-grid">
+    <label>Step 1 working target<input class="field" type="date" id="setStepTarget" /></label>
+    <label>Likely graduation<input class="field" type="date" id="setGrad" /></label>
+    <label>Clinic-day capacity (min)<input class="field" type="number" id="setClinicMin" /></label>
+    <label>Free-day capacity (min)<input class="field" type="number" id="setFreeMin" /></label>
+    <label>Minimum-day capacity (min)<input class="field" type="number" id="setMinimumMin" /></label>
+    <label><input type="checkbox" id="setGamingGate" /> Leisure after required study</label>
+  </div>
+  <div class="modal-actions"><button class="btn danger" id="resetBtn" value="cancel">Reset all data</button><button class="btn" value="cancel">Cancel</button><button class="btn primary" id="saveSettingsBtn" value="default">Save</button></div>
+</form></dialog>
+
+<div id="focusOverlay" class="focus-overlay hidden">
+  <div class="focus-card">
+    <div class="focus-num" id="focusNum">TASK 1</div>
+    <div class="focus-title" id="focusTitle">—</div>
+    <div class="focus-meta" id="focusMeta"></div>
+    <div class="timer" id="focusTimer">00:00</div>
+    <div class="focus-actions"><button class="btn primary" id="timerBtn">Start timer</button><button class="btn" id="focusDoneBtn">Mark done & next</button><button class="btn" id="focusCloseBtn">Exit focus</button></div>
+  </div>
+</div>
+<div class="toast hidden" id="toast"></div>
+<input id="importInput" type="file" accept="application/json" class="hidden" />
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const STORE='khalid_step_road_beta_v3';
+const TODAY = new Date();
+const localISO=(d)=>{const x=new Date(d); x.setMinutes(x.getMinutes()-x.getTimezoneOffset()); return x.toISOString().slice(0,10)};
+const fmt=(d,opts={day:'numeric',month:'short',year:'numeric'})=>new Intl.DateTimeFormat('en-GB',opts).format(new Date(d+'T12:00:00'));
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const uid=()=>Math.random().toString(36).slice(2)+Date.now().toString(36);
+const todayISO=()=>localISO(new Date());
+const addDays=(iso,n)=>{const d=new Date(iso+'T12:00:00');d.setDate(d.getDate()+n);return localISO(d)};
+const diffDays=(a,b)=>Math.ceil((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/86400000);
+const isWeekend=(iso)=>{const d=new Date(iso+'T12:00:00').getDay();return d===0||d===6};
+const between=(x,a,b)=>x>=a&&x<=b;
+
+function seedData(){
+ const systems=['Biochemistry','Immunology','Microbiology','Pathology','Pharmacology','Cardiology','Pulmonary','Renal','Gastroenterology','Endocrine','Reproductive','Neurology','Heme/Onc','MSK/Derm','Psychiatry'];
+ const s={
+  version:2,
+  qlogs:[], feedback:{},
+  settings:{stepTarget:'2027-05-08',grad:'2029-07-01',clinicMin:180,freeMin:330,minimumMin:45,gamingGate:true},
+  tasks:[], priorities:[], exams:[], systems:systems.map(name=>({name,rating:3,questions:0,correct:0,videosDone:0,videosTotal:0})),
+  milestones:[
+   {date:'2026-10-28',title:'Gyne repeat ends',kind:'UNI'},
+   {date:'2026-12-15',title:'Elective window · December',kind:'UNI',approx:true},
+   {date:'2027-01-15',title:'Next block · mid-January',kind:'UNI',approx:true},
+   {date:'2027-05-08',title:'Step 1 working target',kind:'USMLE',approx:true},
+   {date:'2028-06-30',title:'Step 2 CK goal window',kind:'USMLE',approx:true},
+   {date:'2029-07-01',title:'Likely graduation',kind:'UNI',approx:true}
+  ],
+  roads:{
+    aus:[
+      {date:'2026-10-28',name:'Gyne done'}, {date:'2027-05-08',name:'Step 1'}, {date:'2028-06-30',name:'Step 2 CK'},
+      {date:'2029-07-01',name:'Graduate'}, {date:'2029-08-01',name:'AMC pathway'}, {date:'2029-10-01',name:'AMC CAT MCQ'}, {date:'2030-01-01',name:'Australia job'}
+    ],
+    us:[
+      {date:'2026-09-30',name:'Foundation'}, {date:'2027-05-08',name:'Step 1'}, {date:'2028-06-30',name:'Step 2 CK'},
+      {date:'2029-07-01',name:'Graduate'}, {date:'2029-08-01',name:'ECFMG'}, {date:'2029-09-01',name:'US option open'}
+    ]
+  }
+ };
+ s.priorities=[
+   {id:uid(),title:'Pass Gyne repeat',area:'University',weight:4,until:'2026-10-28'},
+   {id:uid(),title:'Build Step 1 daily habit',area:'Step 1',weight:3,until:'2026-10-28'},
+   {id:uid(),title:'Get Student Affairs answers in writing',area:'Admin',weight:4,until:'2026-10-15'},
+   {id:uid(),title:'Step 1 readiness for May window',area:'Step 1',weight:3,until:'2027-05-08'},
+   {id:uid(),title:'Australia as primary post-grad route',area:'Career',weight:3,until:'2029-07-01'}
+ ];
+ const admin=[
+   ['Confirm appeal was received + keep stamped copy','2026-10-01',4],
+   ['Student Affairs meeting: exact first-semester schedule','2026-10-07',4],
+   ['Get exact expected graduation date in writing','2026-10-07',4],
+   ['Get tuition / repeat-course payment answer in writing','2026-10-07',4],
+   ['Confirm diploma + temporary graduation document timing','2026-10-07',3],
+   ['Confirm student status during gap','2026-10-07',3],
+   ['Ask if another rotation group can be joined after Gyne','2026-10-07',4]
+ ];
+ admin.forEach(([title,date,p])=>s.tasks.push(makeTask(title,date,'ADMIN',p,20,0,true,false,'University/admin clarification')));
+ // Beta Day 1: Sep 30, 2026. Deliberately below the 3-hour clinic-day ceiling.
+ [
+   makeTask('Return commute · B&B Reproductive → Pregnancy → 02 Placenta','2026-09-30','USMLE',2,25,0,true,true,'Watch only. No detailed notes. Aim to understand.'),
+   makeTask('Gyne recap · gynecologic exam + vaginal sampling + sterile technique','2026-09-30','UNI',4,75,0,true,true,'Review today’s Group 4 practical topics and exam-relevant steps.'),
+   makeTask('10 unused Reproductive questions · Random · Tutor','2026-09-30','USMLE',3,35,10,true,true,'Qbankly → Amboss Step 1 → Reproductive → Unused → Random → Tutor.'),
+   makeTask('Review incorrects · classify K / C / R / Q','2026-09-30','USMLE',3,20,0,true,true,'Do not rewrite explanations. Record only the reason you missed each one.'),
+   makeTask('Optional · B&B Reproductive → Pregnancy → 06 Hypertension in pregnancy','2026-09-30','USMLE',1,20,0,false,true,'Only if you still have energy after required tasks.')
+ ].forEach(t=>{t.autogen=true;s.tasks.push(t)});
+ s.exams=[
+   {id:uid(),date:'2026-11-15',name:'Official NBME CBSSA baseline',source:'NBME',target:'Baseline · identify weak systems',result:'',suggested:true},
+   {id:uid(),date:'2027-01-31',name:'Official NBME checkpoint',source:'NBME',target:'Track trend',result:'',suggested:true},
+   {id:uid(),date:'2027-03-07',name:'Official NBME checkpoint',source:'NBME',target:'Readiness trend',result:'',suggested:true},
+   {id:uid(),date:'2027-04-04',name:'Official NBME checkpoint',source:'NBME',target:'Decision phase',result:'',suggested:true},
+   {id:uid(),date:'2027-04-25',name:'Official practice material / Free 120 window',source:'USMLE',target:'Final readiness check',result:'',suggested:true}
+ ];
+ return s;
+}
+function makeTask(title,date,category='USMLE',priority=2,minutes=30,questions=0,required=true,flexible=true,notes=''){
+ return {id:uid(),title,date,category,priority:+priority,minutes:+minutes,questions:+questions,required,flexible,notes,done:false,created:Date.now()};
+}
+let state=load();
+function load(){try{const x=JSON.parse(localStorage.getItem(STORE));return x&&x.version?x:seedData()}catch(e){return seedData()}}
+function save(){localStorage.setItem(STORE,JSON.stringify(state));renderAll()}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),1800)}
+
+function phaseFor(date){
+ if(date<='2026-10-28') return {key:'gyne',title:'Gyne + Step 1 Foundation',badge:'Current phase · Gyne first',copy:'Pass Gyne first. Build a daily Step 1 habit without burning out.'};
+ if(date<='2027-01-14') return {key:'sprint',title:'Step 1 Foundation Sprint',badge:'Gap phase · turn it into leverage',copy:'Use the free block aggressively: content + questions + recall, with the December elective protected.'};
+ if(date<='2027-02-28') return {key:'clinical',title:'Clinical + Step 1',badge:'Build endurance',copy:'Questions rise, passive content falls. Keep clinic work safe.'};
+ if(date<='2027-04-15') return {key:'questions',title:'Question-Heavy Step 1',badge:'Exam mode',copy:'Mixed questions, error repair, and official assessment trend.'};
+ if(date<=state.settings.stepTarget) return {key:'final',title:'Final Readiness',badge:'Target window · only sit when ready',copy:'Official assessments + focused repair. The target date moves if readiness is not there.'};
+ return {key:'post',title:'Next Phase',badge:'Keep moving',copy:'Transition to Step 2 CK and clinical-year integration.'};
+}
+
+function ensurePlan(date){
+ const existing=state.tasks.some(t=>t.date===date && t.autogen);
+ if(existing) return;
+ const p=phaseFor(date).key;
+ const tasks=[];
+ if(p==='gyne'){
+   if(isWeekend(date)){
+     tasks.push(makeTask('Step 1 content · Reproductive foundation',date,'USMLE',2,75,0,true,true,'B&B reproductive. Watch for understanding, not notes.'));
+     tasks.push(makeTask('Gyne weekly review',date,'UNI',4,60,0,true,true,'Review the week and weak areas.'));
+     tasks.push(makeTask('20 unused Reproductive questions · Random · Tutor',date,'USMLE',2,70,20,true,true,'Qbankly → Amboss Step 1 → Reproductive → Unused → Random → Tutor.'));
+     tasks.push(makeTask('Review incorrects · classify K/C/R/Q',date,'USMLE',2,35,0,true,true,''));
+   }else{
+     tasks.push(makeTask('Commute · B&B Reproductive video',date,'USMLE',2,30,0,true,true,'Low-friction train study. Continue the Pregnancy folder first.'));
+     tasks.push(makeTask('Gyne review · today’s clinic / exam topics',date,'UNI',4,75,0,true,true,''));
+     tasks.push(makeTask('10 unused Reproductive questions · Random · Tutor',date,'USMLE',2,35,10,true,true,'Qbankly → Amboss Step 1 → Reproductive → Unused → Random → Tutor.'));
+     tasks.push(makeTask('Review incorrects · classify K/C/R/Q',date,'USMLE',2,20,0,true,true,''));
+   }
+ } else if(p==='sprint'){
+   tasks.push(makeTask('Step 1 content block 1',date,'USMLE',3,90,0,true,true,'System-based foundation.'));
+   tasks.push(makeTask('Pathology / content block 2',date,'USMLE',3,90,0,true,true,'Pathoma or targeted concept repair.'));
+   tasks.push(makeTask('Step 1 question block + review',date,'USMLE',3,105,25,true,true,'System-specific early; mixed later.'));
+   tasks.push(makeTask('Active recall / incorrects',date,'USMLE',2,30,0,true,true,''));
+ } else if(p==='clinical'){
+   tasks.push(makeTask('Step 1 questions + review',date,'USMLE',3,70,20,true,true,''));
+   tasks.push(makeTask('Targeted content repair',date,'USMLE',2,50,0,true,true,''));
+   tasks.push(makeTask('University / rotation study',date,'UNI',4,60,0,true,true,''));
+ } else if(p==='questions'){
+   tasks.push(makeTask('Mixed timed Step 1 questions',date,'USMLE',3,75,30,true,true,''));
+   tasks.push(makeTask('Deep review + error log',date,'USMLE',3,80,0,true,true,''));
+   tasks.push(makeTask('Weak-area repair',date,'USMLE',2,45,0,true,true,''));
+ } else if(p==='final'){
+   tasks.push(makeTask('Readiness block / mixed questions',date,'USMLE',3,90,30,true,true,''));
+   tasks.push(makeTask('Incorrects + weak-area repair',date,'USMLE',3,75,0,true,true,''));
+   tasks.push(makeTask('Recall / First Aid map',date,'USMLE',2,30,0,true,true,''));
+ }
+ tasks.forEach(t=>{t.autogen=true;state.tasks.push(t)});
+ localStorage.setItem(STORE,JSON.stringify(state));
+}
+function capacityFor(date){if(window.minimumModeDate===date)return state.settings.minimumMin; return isWeekend(date)?state.settings.freeMin:state.settings.clinicMin}
+
+function renderAll(){
+ ensurePlan(todayISO());
+ renderHero();renderCountdowns();renderWorkloadSummary();renderToday();renderWeek();renderPriorities();renderSystems();renderRoads();renderExams();renderAdmin();renderMilestones();
+}
+function renderHero(){
+ const t=todayISO(), p=phaseFor(t); $('#phaseBadge').textContent=p.badge;$('#phaseTitle').textContent=p.title;$('#phaseCopy').textContent=p.copy;
+ const start='2026-09-30', end=state.settings.stepTarget; const pct=clamp((diffDays(start,t)/Math.max(1,diffDays(start,end)))*100,0,100); $('#overallProgress').style.width=pct+'%';
+ $('#progressCaption').textContent=`Plan progress ${Math.round(pct)}% · target ${fmt(end,{day:'numeric',month:'short',year:'numeric'})}`;
+ $('#daysToStep').textContent=Math.max(0,diffDays(t,state.settings.stepTarget)); $('#stepTargetLabel').textContent=fmt(state.settings.stepTarget,{day:'numeric',month:'short',year:'numeric'});
+ const ws=weekStart(t), days=[...Array(7)].map((_,i)=>addDays(ws,i));
+ const weekTasks=state.tasks.filter(x=>days.includes(x.date)); $('#qThisWeek').textContent=weekTasks.filter(x=>x.done).reduce((a,b)=>a+(b.questions||0),0);
+ $('#daysDoneWeek').textContent=days.filter(d=>{const req=state.tasks.filter(t=>t.date===d&&t.required);return req.length&&req.every(t=>t.done)}).length;
+ $('#streak').textContent=calcStreak();
+}
+function renderCountdowns(){
+ const items=[['Gyne ends','2026-10-28'],['Elective window','2026-12-15'],['Next block','2027-01-15'],['Likely graduation',state.settings.grad]];
+ $('#countdowns').innerHTML=items.map(([name,date])=>`<div class="metric"><div class="count">${Math.max(0,diffDays(todayISO(),date))}</div><div class="count-label">days · ${name}<br>${fmt(date,{day:'numeric',month:'short',year:'numeric'})}</div></div>`).join('');
+}
+function renderWorkloadSummary(){
+ const d=todayISO(); ensurePlan(d);
+ const tasks=state.tasks.filter(t=>t.date===d&&t.category!=='ADMIN').sort((a,b)=>b.priority-a.priority||a.created-b.created);
+ const required=tasks.filter(t=>t.required), optional=tasks.filter(t=>!t.required);
+ const reqMin=required.reduce((a,t)=>a+(+t.minutes||0),0), totalQ=required.reduce((a,t)=>a+(+t.questions||0),0);
+ const done=required.filter(t=>t.done).length;
+ const rows=[...required,...optional].map((t,i)=>`<div class="workload-item ${t.required?'':'optional'}"><div class="workload-num">${t.required?required.indexOf(t)+1:'+'}</div><div><div class="workload-name">${esc(t.title)}</div><div class="workload-meta">${t.minutes||0} min${t.questions?` · ${t.questions} questions`:''}${t.required?' · required':' · optional'}</div></div></div>`).join('');
+ $('#workloadSummary').innerHTML=`<div class="workload-top"><div><div class="eyebrow">TODAY · ${fmt(d,{weekday:'long',day:'numeric',month:'short'})}</div><div style="font-size:22px;font-weight:900;margin-top:4px">Clinic day beta plan</div><div class="sub" style="margin-top:5px">Finish these in order. Gyne stays protected; Step 1 stays alive.</div></div><div style="text-align:right"><div class="workload-total">${Math.floor(reqMin/60)}h ${String(reqMin%60).padStart(2,'0')}m</div><div class="count-label">required · ${totalQ} questions</div></div></div><div class="workload-grid">${rows}</div><div class="workload-footer"><div class="sub">${done}/${required.length} required tasks complete</div><button class="btn primary" onclick="document.getElementById('todaySection').scrollIntoView({behavior:'smooth'})">Start today’s plan ↓</button></div>`;
+}
+
+function renderToday(){
+ const d=todayISO(); ensurePlan(d);
+ $('#todayLabel').textContent=new Intl.DateTimeFormat('en-GB',{weekday:'long',day:'numeric',month:'short'}).format(new Date(d+'T12:00:00'));
+ const p=phaseFor(d); const cap=capacityFor(d); $('#todaySub').textContent=`${p.title} · ${isWeekend(d)?'Free-day':'Clinic-day'} capacity ${Math.round(cap/60*10)/10}h`;
+ const briefs={
+  '2026-09-30':'<strong>Group 4 clinic today:</strong> Gynecologic examination → vaginal sample collection/preparation → surgical hand antisepsis & sterile technique.<br><span class="tiny">Suggested flow: clinic → return-commute B&B → dinner/decompress → Gyne 75 min → 10 Q → incorrects → leisure/family → gym.</span>',
+  '2026-10-01':'<strong>Group 4 clinic:</strong> Intrapartum maternal & fetal assessment / CTG interpretation. Keep Step 1 light and use the commute.',
+ };
+ $('#clinicBrief').innerHTML=briefs[d]||'<strong>University first.</strong> Use this box for the day’s clinic focus; edit/add tasks whenever your schedule changes.';
+ let tasks=state.tasks.filter(t=>t.date===d && t.category!=='ADMIN').sort((a,b)=>b.priority-a.priority||a.created-b.created);
+ if(window.minimumModeDate===d){
+   tasks=tasks.filter(t=>t.category==='USMLE').slice(0,2).map((t,i)=>({...t,minutes:i===0?30:15,questions:i===1?5:t.questions,title:i===0?'Minimum day · 30 min learning':'Minimum day · 5 questions'}));
+ }
+ $('#todayTasks').innerHTML=tasks.length?tasks.map(taskHTML).join(''):'<div class="sub">No tasks yet. Add one or generate your normal plan by reloading.</div>';
+ const req=state.tasks.filter(t=>t.date===d&&t.required&&t.category!=='ADMIN'); const complete=req.length&&req.every(t=>t.done); const gate=$('#leisureGate');
+ gate.className='unlock'+(complete?' ok':''); gate.textContent=state.settings.gamingGate?(complete?'🎮 Required tasks complete — leisure unlocked.':'🎮 Leisure unlocks after required tasks are complete.'):'Leisure gate is disabled in Settings.';
+ bindTaskActions('#todayTasks');
+}
+function taskHTML(t){const pl=t.priority===4?'<span class="pill critical">CRITICAL</span>':''; return `<div class="task ${t.done?'done':''}" data-id="${t.id}"><button class="task-check" data-action="toggle">${t.done?'✓':''}</button><div><div class="task-title">${esc(t.title)}</div><div class="task-meta"><span class="pill ${t.category.toLowerCase()}">${t.category}</span>${pl}<span>${t.minutes||0} min</span>${t.questions?`<span>${t.questions} Q</span>`:''}${t.notes?`<span title="${esc(t.notes)}">ⓘ ${esc(t.notes.slice(0,60))}${t.notes.length>60?'…':''}</span>`:''}</div></div><div class="task-actions"><button class="iconbtn" data-action="edit" title="Edit">✎</button><button class="iconbtn" data-action="tomorrow" title="Move to tomorrow">→</button><button class="iconbtn" data-action="delete" title="Delete">⌫</button></div></div>`}
+function bindTaskActions(root){$$(root+' [data-action]').forEach(b=>b.onclick=()=>{const id=b.closest('.task').dataset.id, a=b.dataset.action;const t=state.tasks.find(x=>x.id===id);if(!t)return;if(a==='toggle'){t.done=!t.done;save()}else if(a==='edit')openTask(t);else if(a==='tomorrow'){t.date=addDays(t.date,1);save();toast('Moved to tomorrow')}else if(a==='delete'){state.tasks=state.tasks.filter(x=>x.id!==id);save()}})}
+function weekStart(iso){const d=new Date(iso+'T12:00:00'),day=d.getDay()||7;d.setDate(d.getDate()-day+1);return localISO(d)}
+function renderWeek(){const ws=weekStart(todayISO());const arr=[...Array(7)].map((_,i)=>addDays(ws,i));$('#weekStrip').innerHTML=arr.map(d=>{const req=state.tasks.filter(t=>t.date===d&&t.required&&t.category!=='ADMIN');const all=req.length&&req.every(t=>t.done), part=req.some(t=>t.done);return `<div class="day ${d===todayISO()?'active':''} ${all?'all':part?'partial':''}"><div class="dow">${fmt(d,{weekday:'short'})}</div><div class="num">${new Date(d+'T12:00:00').getDate()}</div><div class="dot"></div></div>`}).join('')}
+function calcStreak(){let s=0,d=todayISO();for(let i=0;i<90;i++){const req=state.tasks.filter(t=>t.date===d&&t.required&&t.category!=='ADMIN');if(req.length&&req.every(t=>t.done)){s++;d=addDays(d,-1)}else if(d===todayISO()){d=addDays(d,-1)}else break}return s}
+function renderPriorities(){const w={4:'Critical',3:'High',2:'Normal',1:'Low'};$('#priorityList').innerHTML=state.priorities.sort((a,b)=>b.weight-a.weight).map(p=>`<div class="priority-item" data-id="${p.id}"><div class="drag">⋮⋮</div><div><div class="prio-title">${esc(p.title)}</div><div class="prio-meta">${p.area} · ${w[p.weight]}${p.until?' · until '+fmt(p.until,{day:'numeric',month:'short'}):''}</div></div><button class="iconbtn" data-prio-del="${p.id}">⌫</button></div>`).join('');$$('[data-prio-del]').forEach(b=>b.onclick=()=>{state.priorities=state.priorities.filter(p=>p.id!==b.dataset.prioDel);save()})}
+function renderSystems(){const totalQ=state.systems.reduce((a,b)=>a+(b.questions||0),0), totalCorrect=state.systems.reduce((a,b)=>a+(b.correct||0),0);const logs=state.qlogs||[];const errs=logs.reduce((o,l)=>({k:o.k+(l.k||0),c:o.c+(l.c||0),r:o.r+(l.r||0),q:o.q+(l.q||0)}),{k:0,c:0,r:0,q:0});$('#systemsCard').innerHTML=`<div class="grid cols4" style="margin-bottom:12px"><div class="metric"><div class="count">${totalQ}</div><div class="count-label">questions logged</div></div><div class="metric"><div class="count">${totalQ?Math.round(totalCorrect/totalQ*100):0}%</div><div class="count-label">overall accuracy</div></div><div class="metric"><div class="count">${(state.systems.reduce((a,b)=>a+b.rating,0)/state.systems.length).toFixed(1)}</div><div class="count-label">avg foundation /10</div></div><div class="metric"><div style="font-weight:900">K ${errs.k} · C ${errs.c} · R ${errs.r} · Q ${errs.q}</div><div class="count-label">error pattern</div></div></div>`+state.systems.map((s,i)=>`<div class="system-row"><div><strong>${esc(s.name)}</strong><div class="sub">${s.questions} Q logged</div></div><div>Foundation <input class="small-input sysrating" data-i="${i}" type="number" min="0" max="10" step="0.5" value="${s.rating}"></div><div>Videos <input class="small-input sysvideos" data-i="${i}" type="text" value="${s.videosDone}/${s.videosTotal||'—'}"></div><div class="sys-bar"><div class="bar"><span style="width:${s.rating*10}%"></span></div></div><div><button class="btn sysaddq" data-i="${i}" style="padding:7px 9px">+Q</button></div></div>`).join('');
+ $$('.sysrating').forEach(x=>x.onchange=()=>{state.systems[+x.dataset.i].rating=clamp(+x.value,0,10);save()});
+ $$('.sysvideos').forEach(x=>x.onchange=()=>{const [a,b]=x.value.split('/');state.systems[+x.dataset.i].videosDone=+a||0;state.systems[+x.dataset.i].videosTotal=+b||0;save()});
+ $$('.sysaddq').forEach(x=>x.onclick=()=>{const n=prompt('Questions completed?','10');if(n!==null){state.systems[+x.dataset.i].questions+=(+n||0);save()}})
+}
+function renderRoads(){renderRoad('#ausRoad',state.roads.aus);renderRoad('#usRoad',state.roads.us)}
+function renderRoad(sel,items){const now=todayISO();let idx=0;items.forEach((x,i)=>{if(x.date<=now)idx=i});$(sel).innerHTML=items.map((x,i)=>`<div class="stop ${i===idx?'current primary':''}"><div class="node"></div><div class="sdate">${fmt(x.date,{day:'numeric',month:'short',year:'2-digit'})}</div><div class="sname">${esc(x.name)}</div></div>`).join('')}
+function renderExams(){$('#practiceTable').innerHTML=state.exams.sort((a,b)=>a.date.localeCompare(b.date)).map(e=>`<tr><td>${fmt(e.date,{day:'numeric',month:'short',year:'2-digit'})}</td><td>${esc(e.name)}${e.suggested?' <span class="pill">suggested</span>':''}</td><td>${esc(e.source||'')}</td><td>${esc(e.target||'')}</td><td><input class="small-input examresult" data-id="${e.id}" value="${esc(e.result||'')}" placeholder="—"></td><td><button class="iconbtn" data-exam-del="${e.id}">⌫</button></td></tr>`).join('');$$('.examresult').forEach(x=>x.onchange=()=>{state.exams.find(e=>e.id===x.dataset.id).result=x.value;save()});$$('[data-exam-del]').forEach(x=>x.onclick=()=>{state.exams=state.exams.filter(e=>e.id!==x.dataset.examDel);save()})}
+function renderAdmin(){const tasks=state.tasks.filter(t=>t.category==='ADMIN').sort((a,b)=>a.date.localeCompare(b.date));$('#adminTasks').innerHTML=tasks.map(taskHTML).join('');bindTaskActions('#adminTasks')}
+function renderMilestones(){$('#milestones').innerHTML=state.milestones.sort((a,b)=>a.date.localeCompare(b.date)).map(m=>`<div class="metric"><div class="pill ${m.kind.toLowerCase()}">${m.kind}</div><div style="font-size:18px;font-weight:900;margin-top:10px">${esc(m.title)}</div><div class="sub">${m.approx?'~ ':''}${fmt(m.date)}</div></div>`).join('')}
+
+function esc(s=''){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function openTask(t=null){const d=$('#taskDialog');$('#taskDialogTitle').textContent=t?'Edit task':'Add task';$('#taskId').value=t?.id||'';$('#taskTitle').value=t?.title||'';$('#taskDate').value=t?.date||todayISO();$('#taskCategory').value=t?.category||'USMLE';$('#taskPriority').value=t?.priority||2;$('#taskMinutes').value=t?.minutes||30;$('#taskQuestions').value=t?.questions||0;$('#taskRequired').checked=t?.required??true;$('#taskFlexible').checked=t?.flexible??true;$('#taskNotes').value=t?.notes||'';d.showModal()}
+$('#addTaskBtn').onclick=()=>openTask();
+$('#taskForm').addEventListener('submit',e=>{if(e.submitter?.value==='cancel')return;e.preventDefault();const id=$('#taskId').value;const obj={title:$('#taskTitle').value.trim(),date:$('#taskDate').value,category:$('#taskCategory').value,priority:+$('#taskPriority').value,minutes:+$('#taskMinutes').value||0,questions:+$('#taskQuestions').value||0,required:$('#taskRequired').checked,flexible:$('#taskFlexible').checked,notes:$('#taskNotes').value.trim()};if(id){Object.assign(state.tasks.find(t=>t.id===id),obj)}else state.tasks.push({...makeTask(obj.title,obj.date,obj.category,obj.priority,obj.minutes,obj.questions,obj.required,obj.flexible,obj.notes)});$('#taskDialog').close();save()});
+
+$('#addPriorityBtn').onclick=()=>{$('#prioTitle').value='';$('#prioUntil').value='';$('#priorityDialog').showModal()};
+$('#priorityForm').addEventListener('submit',e=>{if(e.submitter?.value==='cancel')return;e.preventDefault();state.priorities.push({id:uid(),title:$('#prioTitle').value.trim(),area:$('#prioArea').value,weight:+$('#prioWeight').value,until:$('#prioUntil').value});$('#priorityDialog').close();save()});
+$('#addExamBtn').onclick=()=>{$('#examDate').value=todayISO();$('#examName').value='';$('#examSource').value='';$('#examTarget').value='';$('#examResult').value='';$('#examDialog').showModal()};
+$('#examForm').addEventListener('submit',e=>{if(e.submitter?.value==='cancel')return;e.preventDefault();state.exams.push({id:uid(),date:$('#examDate').value,name:$('#examName').value,source:$('#examSource').value,target:$('#examTarget').value,result:$('#examResult').value,suggested:false});$('#examDialog').close();save()});
+
+// Question-set logging\nfunction openQlog(){\n const sel=$('#qlogSystem'); sel.innerHTML=state.systems.map(s=>`<option ${s.name==='Reproductive'?'selected':''}>${esc(s.name)}</option>`).join('');\n $('#qlogTotal').value=10;$('#qlogCorrect').value=0;$('#qlogK').value=0;$('#qlogC').value=0;$('#qlogR').value=0;$('#qlogQ').value=0;$('#qlogNote').value='';$('#qlogDialog').showModal();\n}\n$('#logQBtn').onclick=openQlog;\n$('#qlogForm').addEventListener('submit',e=>{if(e.submitter?.value==='cancel')return;e.preventDefault();const total=+$('#qlogTotal').value||0, correct=clamp(+$('#qlogCorrect').value||0,0,total);const log={id:uid(),date:todayISO(),system:$('#qlogSystem').value,total,correct,k:+$('#qlogK').value||0,c:+$('#qlogC').value||0,r:+$('#qlogR').value||0,q:+$('#qlogQ').value||0,note:$('#qlogNote').value.trim()};state.qlogs=state.qlogs||[];state.qlogs.push(log);const sys=state.systems.find(s=>s.name===log.system);if(sys){sys.questions=(sys.questions||0)+total;sys.correct=(sys.correct||0)+correct;}$('#qlogDialog').close();save();toast(`Logged ${total} questions · ${Math.round(correct/Math.max(1,total)*100)}%`)});\n\n// Beta feedback\nconst feedbackScores={start:0,load:0,focus:0};\nfunction renderFeedbackButtons(){['start','load','focus'].forEach(key=>{const box=document.querySelector(`[data-feedback="${key}"]`);if(!box)return;box.innerHTML=[1,2,3,4,5].map(n=>`<button type="button" class="scorebtn ${feedbackScores[key]===n?'active':''}" data-fkey="${key}" data-score="${n}">${n}</button>`).join('')});$$('[data-fkey]').forEach(b=>b.onclick=()=>{feedbackScores[b.dataset.fkey]=+b.dataset.score;renderFeedbackButtons()})}\n$('#saveFeedbackBtn').onclick=()=>{const d=todayISO();state.feedback=state.feedback||{};state.feedback[d]={...feedbackScores,note:$('#betaNote').value.trim(),savedAt:new Date().toISOString()};localStorage.setItem(STORE,JSON.stringify(state));$('#feedbackSaved').textContent='Saved. Bring this feedback back to our chat and I’ll tune the beta.';toast('Beta feedback saved')};\nrenderFeedbackButtons();\n\n$('#settingsBtn').onclick=()=>{$('#setStepTarget').value=state.settings.stepTarget;$('#setGrad').value=state.settings.grad;$('#setClinicMin').value=state.settings.clinicMin;$('#setFreeMin').value=state.settings.freeMin;$('#setMinimumMin').value=state.settings.minimumMin;$('#setGamingGate').checked=state.settings.gamingGate;$('#settingsDialog').showModal()};
+$('#settingsForm').addEventListener('submit',e=>{if(e.submitter?.value==='cancel')return;e.preventDefault();state.settings={...state.settings,stepTarget:$('#setStepTarget').value,grad:$('#setGrad').value,clinicMin:+$('#setClinicMin').value,freeMin:+$('#setFreeMin').value,minimumMin:+$('#setMinimumMin').value,gamingGate:$('#setGamingGate').checked};$('#settingsDialog').close();save()});
+$('#resetBtn').onclick=(e)=>{e.preventDefault();if(confirm('Reset the entire tracker? Export a backup first if you want to keep your data.')){state=seedData();localStorage.setItem(STORE,JSON.stringify(state));$('#settingsDialog').close();renderAll();toast('Tracker reset')}};
+
+$('#minimumBtn').onclick=()=>{window.minimumModeDate=window.minimumModeDate===todayISO()?null:todayISO();renderToday();toast(window.minimumModeDate?'Minimum day enabled':'Normal day restored')};
+$('#recoveryBtn').onclick=()=>{const today=todayISO();const overdue=state.tasks.filter(t=>!t.done&&t.flexible&&t.date<today&&t.category!=='ADMIN');if(!overdue.length){toast('No flexible overdue study tasks');return}let offset=0;overdue.forEach((t,i)=>{offset=(i%3)+1;t.date=addDays(today,offset)});save();toast(`${overdue.length} overdue tasks redistributed`)};
+
+let focusIndex=0, focusTasks=[], timerHandle=null, timerSeconds=0;
+$('#startBtn').onclick=()=>{focusTasks=state.tasks.filter(t=>t.date===todayISO()&&!t.done&&t.required&&t.category!=='ADMIN').sort((a,b)=>b.priority-a.priority||a.created-b.created);if(!focusTasks.length){toast('Today is already complete');return}focusIndex=0;showFocus()};
+function showFocus(){const t=focusTasks[focusIndex];if(!t){$('#focusOverlay').classList.add('hidden');renderAll();toast('Day complete');return}$('#focusOverlay').classList.remove('hidden');$('#focusNum').textContent=`TASK ${focusIndex+1} OF ${focusTasks.length}`;$('#focusTitle').textContent=t.title;$('#focusMeta').textContent=`${t.category} · ${t.minutes} min${t.questions?' · '+t.questions+' questions':''}${t.notes?' · '+t.notes:''}`;timerSeconds=t.minutes*60;updateTimer();clearInterval(timerHandle);$('#timerBtn').textContent='Start timer'}
+function updateTimer(){const m=Math.floor(timerSeconds/60).toString().padStart(2,'0'),s=(timerSeconds%60).toString().padStart(2,'0');$('#focusTimer').textContent=`${m}:${s}`}
+$('#timerBtn').onclick=()=>{if(timerHandle){clearInterval(timerHandle);timerHandle=null;$('#timerBtn').textContent='Resume timer'}else{timerHandle=setInterval(()=>{timerSeconds=Math.max(0,timerSeconds-1);updateTimer();if(!timerSeconds){clearInterval(timerHandle);timerHandle=null;toast('Timer complete')}},1000);$('#timerBtn').textContent='Pause timer'}};
+$('#focusDoneBtn').onclick=()=>{const t=focusTasks[focusIndex];const real=state.tasks.find(x=>x.id===t.id);if(real)real.done=true;localStorage.setItem(STORE,JSON.stringify(state));focusIndex++;showFocus()};
+$('#focusCloseBtn').onclick=()=>{$('#focusOverlay').classList.add('hidden');clearInterval(timerHandle);timerHandle=null;renderAll()};
+
+$('#backupBtn').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='khalid-step-road-backup-'+todayISO()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);toast('Backup exported')};$('#importBtn').onclick=()=>$('#importInput').click();$('#importInput').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!x.version)throw 0;state=x;localStorage.setItem(STORE,JSON.stringify(state));renderAll();toast('Backup restored')}catch{alert('That does not look like a Step Road backup.')}};r.readAsText(f)};
+
+// Drag/drop backup file anywhere to restore.
+document.addEventListener('dragover',e=>e.preventDefault());document.addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!x.version)throw 0;state=x;localStorage.setItem(STORE,JSON.stringify(state));renderAll();toast('Backup restored')}catch{alert('That does not look like a Step Road backup.')}};r.readAsText(f)});
+
+renderAll();
+</script>
+</body>
+</html>
